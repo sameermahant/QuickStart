@@ -1,0 +1,16 @@
+# Project specific ignore
+
+# CLion files
+.idea
+cmake-build-*
+
+# Eclipse files
+.cproject
+.project
+
+# KDevelop files
+*.kdev4
+
+# Visual Studio Code files
+.vscode
+build
