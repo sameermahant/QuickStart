@@ -1,2 +1,3 @@
 # QuickStart
-Templates of programs to quick start task
+
+Minimal code samples of programs to quick start programming task
