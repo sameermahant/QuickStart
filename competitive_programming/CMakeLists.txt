@@ -1,7 +1,7 @@
 # ======================================================================
 # Mandatory cmake command
 # ======================================================================
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.20)
 
 # ======================================================================
 # Project specific settings
@@ -26,8 +26,8 @@ set(COMPILER_WARRNINGS "-Wall -Werror -Wextra -Wno-unused-function -Wno-deprecat
 set(CMAKE_CXX_FLAGS "${COMPILER_FLAGS} ${COMPILER_WARRNINGS}")
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-    message("Setting build type to 'RelWithDebInfo' as none was specified.")
-    set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build." FORCE)
+    message("Setting build type to 'Release' as none was specified.")
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build." FORCE)
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
@@ -69,7 +69,13 @@ add_custom_target(copy_input_file DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/input.txt
 # ======================================================================
 # Targets / Subdirectories
 # ======================================================================
-add_executable(SampleProgram.exe Main.cpp)
+add_executable(SampleProgram.exe "")
+target_sources(AntlrApp
+    PRIVATE
+        Main.cpp
+)
 target_link_libraries(SampleProgram.exe stdc++)
 add_dependencies(SampleProgram.exe copy_input_file)
-set_property(TARGET SampleProgram.exe PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
+set_target_properties(SampleProgram.exe PROPERTIES
+    RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time"
+)
